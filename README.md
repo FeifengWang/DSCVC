@@ -18,7 +18,7 @@ If you find this work useful for your research, please cite:
 }
 ```
 # LICENSE
-SCVD dataset is released under Apache License 2.0.
+SCVD dataset is released under MIT License.
 
 # Contact
 If you have any questions, please contact wff0520@shu.edu.cn.
