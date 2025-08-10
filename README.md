@@ -6,7 +6,7 @@ Our paper [DSCVC: Deep Screen Content Video Compression] has been submitted to T
 * Code of DSCVC and compression details of traditional codecs will be presented later.
 
 # Datasets
-Our SCVD dataset contains 500 screen content video clips, whose resolution are all 1920x1080. Datasets can be downloaded in [BaiduNetdisk](https://pan.baidu.com/s/1pNKjiR4nIPjYhlXdQ9wN_Q?pwd=T710). Our dataset is available for the academic purpose only.
+Our SCVD dataset contains 500 screen content video clips, whose resolution are all 1920x1080. Datasets can be downloaded in [BaiduNetdisk](https://pan.baidu.com/s/1pNKjiR4nIPjYhlXdQ9wN_Q?pwd=T710) and [huggingface](https://huggingface.co/datasets/vlv00/SCVD). Our dataset is available for the academic purpose only.
 
 # Citation
 If you find this work useful for your research, please cite:
