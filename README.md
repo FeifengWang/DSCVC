@@ -18,7 +18,7 @@ If you find this work useful for your research, please cite:
 }
 ```
 # LICENSE
-SCVD dataset is released under MIT License.
+This dataset is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
 # Contact
 If you have any questions, please contact wff0520@shu.edu.cn.
