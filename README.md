@@ -6,7 +6,7 @@ Our paper [DSCVC: Deep Screen Content Video Compression] has been submitted to T
 * 2025.08.27: Upload the codes and pretrained models.
 
 # Datasets
-The Screen Content Video Dataset (SCVD) comprises 500 high-definition video clips with a uniform resolution of 1920 × 1080 pixels (Full HD). Datasets can be downloaded in [BaiduNetdisk](https://pan.baidu.com/s/1pNKjiR4nIPjYhlXdQ9wN_Q?pwd=T710) and [GoogleDrive](https://drive.google.com/drive/folders/1C6D3-i_ilprkRAFdb3tuFJZSuwlAWZUg?usp=drive_link).
+The Screen Content Video Dataset (SCVD) comprises 500 high-definition video clips with a uniform resolution of 1920 × 1080 pixels (Full HD). Datasets can be downloaded in [BaiduNetdisk](https://pan.baidu.com/s/1pNKjiR4nIPjYhlXdQ9wN_Q?pwd=T710) and [GoogleDrive](https://drive.google.com/drive/folders/1C6D3-i_ilprkRAFdb3tuFJZSuwlAWZUg?usp=sharing).
 
 # Pretrained models
 The pretrained models can be downloaded in [GoogleDrive](https://drive.google.com/drive/folders/1IdEhDuR1Nj3GK0vwLBjwaLQzN2StZO4O?usp=sharing).After downloading, please place them in the codes/ckpts folder.
