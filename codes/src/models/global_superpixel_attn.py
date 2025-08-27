@@ -1,100 +1,16 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-from compressai.layers import ResidualBlock
-# --------------------------------------------------------
-# Super Token Vision Transformer (STViT)
-# Copyright (c) 2023 CASIA
-# Licensed under The MIT License [see LICENSE for details]
-# Written by Huaibo Huang
-# --------------------------------------------------------
 
-import torch
-import torch.nn as nn
-import torch.utils.checkpoint as checkpoint
 from deepspeed.profiling.flops_profiler import get_model_profile
-from timm.models.layers import DropPath, to_2tuple, trunc_normal_
-import scipy.io as sio
+
 import torch.nn.functional as F
-import math
-from functools import partial
+
 # from fvcore.nn import FlopCountAnalysis
 # from fvcore.nn import flop_count_table
-from timm.models.registry import register_model
-from timm.models.vision_transformer import _cfg
-import time
 
 
-class SwishImplementation(torch.autograd.Function):
-    @staticmethod
-    def forward(ctx, i):
-        result = i * torch.sigmoid(i)
-        ctx.save_for_backward(i)
-        return result
-
-    @staticmethod
-    def backward(ctx, grad_output):
-        i = ctx.saved_tensors[0]
-        sigmoid_i = torch.sigmoid(i)
-        return grad_output * (sigmoid_i * (1 + i * (1 - sigmoid_i)))
 
 
-class MemoryEfficientSwish(nn.Module):
-    def forward(self, x):
-        return SwishImplementation.apply(x)
-
-
-class LayerNorm2d(nn.Module):
-    def __init__(self, dim):
-        super().__init__()
-
-        self.norm = nn.LayerNorm(dim, eps=1e-6)
-
-    def forward(self, x):
-        return self.norm(x.permute(0, 2, 3, 1).contiguous()).permute(0, 3, 1, 2).contiguous()
-
-
-class ResDWC(nn.Module):
-    def __init__(self, dim, kernel_size=3):
-        super().__init__()
-
-        self.dim = dim
-        self.kernel_size = kernel_size
-
-        self.conv = nn.Conv2d(dim, dim, kernel_size, 1, kernel_size // 2, groups=dim)
-
-        # self.conv_constant = nn.Parameter(torch.eye(kernel_size).reshape(dim, 1, kernel_size, kernel_size))
-        # self.conv_constant.requires_grad = False
-
-    def forward(self, x):
-        # return F.conv2d(x, self.conv.weight+self.conv_constant, self.conv.bias, stride=1, padding=self.kernel_size//2, groups=self.dim) # equal to x + conv(x)
-        return x + self.conv(x)
-
-
-class Mlp(nn.Module):
-    def __init__(self, in_features, hidden_features=None, out_features=None, act_layer=nn.GELU, drop=0., conv_pos=True,
-                 downsample=False, kernel_size=5):
-        super().__init__()
-
-        self.in_features = in_features
-        self.out_features = out_features = out_features or in_features
-        self.hidden_features = hidden_features = hidden_features or in_features
-
-        self.fc1 = nn.Conv2d(in_features, hidden_features, 1)
-        self.act1 = act_layer()
-        self.fc2 = nn.Conv2d(hidden_features, out_features, 1)
-        self.drop = nn.Dropout(drop)
-
-        self.conv = ResDWC(hidden_features, 3)
-
-    def forward(self, x):
-        x = self.fc1(x)
-        x = self.act1(x)
-        x = self.drop(x)
-        x = self.conv(x)
-        x = self.fc2(x)
-        x = self.drop(x)
-        return x
 
 
 class Attention(nn.Module):
@@ -497,8 +413,6 @@ if __name__ == '__main__':
             print(f"  参数量: {result['total_params']:,}")
             print(f"  总FLOPs: {result['total_flops']:,}")
             print(f"  总FLOPs (GFLOPs): {result['total_flops'] / 1e9:.4f} GFLOPs")
-            # MACs通常约等于FLOPs的一半
-            print(f"  估计MACs (GMACs): {result['total_macs'] / 1e9:.4f} GMACs")
 
         except Exception as e:
             print(f"superpixel_size={size} 分析失败: {e}")
